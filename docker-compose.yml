@@ -1,0 +1,22 @@
+version: "3"
+services:
+
+  jupyter:
+    build:
+      context: ./
+    ports:
+      - "8888:8888"
+    # links:
+      # - postgres
+    volumes:
+          - "./src:/src" 
+          - "./test:/src/test"
+          - "./data:/data"
+
+  postgresDb:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: student
+      POSTGRES_PASSWORD: student
+      POSTGRES_DB: studentdb
