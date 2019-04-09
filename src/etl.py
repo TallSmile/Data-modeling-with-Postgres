@@ -11,11 +11,15 @@ def process_song_file(cur, filepath):
 
     # insert artist record
     artist_data = [ list(row) for row in df.loc[:, ['artist_id', 'artist_name', 'artist_location', 'artist_latitude', 'artist_longitude']].itertuples(index=False)]
-    cur.execute(artist_table_insert, artist_data[0])
+    
+    for artist in artist_data:
+        cur.execute(artist_table_insert, artist)
 
     # insert song record
     song_data = [ list(row) for row in df.loc[:, ['song_id', 'title', 'artist_id', 'year', 'duration']].itertuples(index=False)]
-    cur.execute(song_table_insert, song_data[0])
+    
+    for song in song_data:
+        cur.execute(song_table_insert, song)
     
 
 
