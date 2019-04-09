@@ -35,12 +35,13 @@ def create_tables(cur, conn):
 
 
 def main():
-    cur, conn = create_database()
+    try:
+        cur, conn = create_database()
     
-    drop_tables(cur, conn)
-    create_tables(cur, conn)
-
-    conn.close()
+        drop_tables(cur, conn)
+        create_tables(cur, conn)
+    finally:
+        conn.close()
 
 
 if __name__ == "__main__":
