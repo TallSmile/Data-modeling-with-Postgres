@@ -6,8 +6,6 @@ services:
       context: ./
     ports:
       - "8888:8888"
-    # links:
-      # - postgres
     volumes:
           - "./src:/src" 
           - "./test:/src/test"
