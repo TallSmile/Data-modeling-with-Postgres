@@ -1,4 +1,5 @@
 import os
+import io
 import glob
 import psycopg2
 import pandas as pd
@@ -54,20 +55,23 @@ def process_log_file(cur, filepath):
     # insert user records
     for i, row in user_df.iterrows():
         cur.execute(user_table_insert, row)
-
+    songplays_cols =[ 'start_time', 'user_id', 'level', 'song_id', 'artist_id', 'session_id', 'user_agent']
+    songplays_df = pd.DataFrame(columns = songplays_cols)
     # insert songplay records
     for index, row in df.iterrows():
         
         # get songid and artistid from song and artist tables
-        #print("Searching for {}, {}, {}".format(row.song, row.artist, row.length))
+
         results = cur.execute(song_select, (row.song, row.artist, row.length))
         songid, artistid = results if results else None, None
-        # if artistid is not None:
-        #     print("Found {}, {}".format(songid,artistid))
-        # insert songplay record
-        songplay_data = (pd.to_datetime(row['ts'], unit ='ms'), row['userId'], row['level'], songid, artistid, row['sessionId'], row['userAgent'])
-        cur.execute(songplay_table_insert, songplay_data)
 
+        songplays_df.loc[index] = [pd.to_datetime(row['ts'], unit ='ms'), row['userId'], row['level'], songid, artistid, row['sessionId'], row['userAgent']]
+    
+    # copy song play data
+    s_buf = io.StringIO()
+    songplays_df.to_csv(s_buf, sep=',', na_rep='null', index =False)
+    s_buf.seek(0)
+    cur.copy_expert(songplay_table_copy, s_buf)
 
 def process_data(cur, conn, filepath, func):
     '''
