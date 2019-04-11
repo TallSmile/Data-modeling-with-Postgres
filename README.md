@@ -23,7 +23,7 @@ docker-compose up
 
 ## Schema for Song Play Analysis
 
-Below is presented the schema of sparkifydb. 
+Below is presented the schema of sparkifydb. We start schema in order to optimize queries for song play analysis.
 
 ### Fact Table
 
