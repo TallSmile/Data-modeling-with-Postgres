@@ -27,7 +27,11 @@ def process_song_file(cur, filepath):
 
     # insert song record
     song_data = [list(row) for row in df.loc[:, [
-        'song_id', 'title', 'artist_id', 'year', 'duration']].itertuples(index=False)]
+        'song_id',
+        'title',
+        'artist_id',
+        'year',
+        'duration']].itertuples(index=False)]
 
     for song in song_data:
         cur.execute(song_table_insert, song)
@@ -35,7 +39,8 @@ def process_song_file(cur, filepath):
 
 def process_log_file(cur, filepath):
     '''
-    Processes provided log JSON file and inserts relevant data into the database.
+    Processes provided log JSON file and inserts relevant
+    data into the database.
     '''
     # open log file
     df = pd.read_json(filepath, lines=True)
@@ -48,7 +53,13 @@ def process_log_file(cur, filepath):
 
     # insert time data records
     time_data = time_data = (
-        t, t.dt.hour, t.dt.day, t.dt.weekofyear, t.dt.month, t.dt.year, t.dt.weekday)
+        t,
+        t.dt.hour,
+        t.dt.day,
+        t.dt.weekofyear,
+        t.dt.month,
+        t.dt.year,
+        t.dt.weekday)
     column_labels = ('timestamp', 'hour', 'day',
                      'week', 'month', 'year', 'weekday')
 
@@ -76,8 +87,14 @@ def process_log_file(cur, filepath):
         results = cur.execute(song_select, (row.song, row.artist, row.length))
         songid, artistid = results if results else None, None
 
-        songplays_df.loc[index] = [pd.to_datetime(
-            row['ts'], unit='ms'), row['userId'], row['level'], songid, artistid, row['sessionId'], row['userAgent']]
+        songplays_df.loc[index] = [
+            pd.to_datetime(row['ts'], unit='ms'),
+            row['userId'],
+            row['level'],
+            songid,
+            artistid,
+            row['sessionId'],
+            row['userAgent']]
 
     # copy song play data
     s_buf = io.StringIO()
@@ -88,7 +105,8 @@ def process_log_file(cur, filepath):
 
 def process_data(cur, conn, filepath, func):
     '''
-    Processes all song and log JSON files and inserts relevant data into the database.
+    Processes all song and log JSON files and inserts relevant
+    data into the database.
     '''
     # get all files matching extension from directory
     all_files = []
