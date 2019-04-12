@@ -11,52 +11,52 @@ time_table_drop = "DROP TABLE IF EXISTS  time;"
 
 user_table_create = ("""CREATE TABLE IF NOT EXISTS users (
     user_id varchar PRIMARY KEY,
-    first_name varchar,
-    last_name varchar,
-    gender varchar,
-    level varchar
+    first_name varchar NOT NULL,
+    last_name varchar NOT NULL,
+    gender varchar NOT NULL,
+    level varchar NOT NULL
     );
 """)
 
 song_table_create = ("""CREATE TABLE IF NOT EXISTS songs (
     song_id varchar PRIMARY KEY,
-    title varchar,
-    artist_id varchar,
-    year int,
-    duration double precision,
+    title varchar NOT NULL,
+    artist_id varchar NOT NULL,
+    year int NOT NULL,
+    duration double precision NOT NULL,
     FOREIGN KEY (artist_id) REFERENCES artists (artist_id)
     );
 """)
 
 artist_table_create = ("""CREATE TABLE IF NOT EXISTS artists (
-    name varchar,
+    name varchar NOT NULL,
     artist_id varchar PRIMARY KEY,
-    location varchar,
-    latitude double precision,
-    longitude double precision
+    location varchar NOT NULL,
+    latitude double precision NOT NULL,
+    longitude double precision NOT NULL
     );
 """)
 
 time_table_create = ("""CREATE TABLE IF NOT EXISTS time (
     start_time timestamp PRIMARY KEY,
-    hour int,
-    day int,
-    week int,
-    month int,
-    year int,
-    weekday int
+    hour int NOT NULL,
+    day int NOT NULL,
+    week int NOT NULL,
+    month int NOT NULL,
+    year int NOT NULL,
+    weekday int NOT NULL
     );
 """)
 
 songplay_table_create = ("""CREATE TABLE IF NOT EXISTS songplays (
     songplay_id serial PRIMARY KEY,
-    start_time timestamp,
-    user_id varchar,
-    level varchar,
+    start_time timestamp NOT NULL,
+    user_id varchar NOT NULL,
+    level varchar NOT NULL,
     song_id varchar,
     artist_id varchar,
-    session_id varchar,
-    user_agent varchar,
+    session_id varchar NOT NULL,
+    user_agent varchar NOT NULL,
     FOREIGN KEY (song_id) REFERENCES songs (song_id),
     FOREIGN KEY (artist_id) REFERENCES artists (artist_id),
     FOREIGN KEY (start_time) REFERENCES time (start_time),
