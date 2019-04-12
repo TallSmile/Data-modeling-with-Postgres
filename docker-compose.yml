@@ -7,9 +7,11 @@ services:
     ports:
       - "8888:8888"
     volumes:
-          - "./src:/src" 
-          - "./test:/src/test"
+          - "./src:/modeling/src" 
+          - "./test:/modeling/test"
           - "./data:/data"
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
 
   postgresDb:
     image: postgres:latest
