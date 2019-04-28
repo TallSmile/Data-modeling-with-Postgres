@@ -15,7 +15,7 @@ services:
 
   postgresDb:
     image: postgres:latest
-    restart: always
+    restart: 'no'
     environment:
       POSTGRES_USER: student
       POSTGRES_PASSWORD: student
