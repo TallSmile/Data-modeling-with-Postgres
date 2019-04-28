@@ -27,7 +27,7 @@ Below is presented the schema of sparkifydb. In order to optimize queries for so
 
 ### Fact Table
 
-> Records in log data associated with song plays i.e. records with page NextSong
+Records in log data associated with song plays i.e. records with page NextSong
 
 | **songplays** | KEY|
 |---------------|---:|
@@ -43,7 +43,7 @@ Below is presented the schema of sparkifydb. In order to optimize queries for so
 
 ### Dimension Tables
 
-> Users in the app
+Users in the app
 
 | **users** |KEY|
 |-----------|--:|
@@ -53,7 +53,7 @@ Below is presented the schema of sparkifydb. In order to optimize queries for so
 | gender    |   |
 | level     |   |
 
-> Songs in music database
+Songs in music database
 
 | **songs** |KEY|
 |-----------|--:|
@@ -63,7 +63,7 @@ Below is presented the schema of sparkifydb. In order to optimize queries for so
 | year      |   |
 | duration  |   |
 
-> Artists in music database
+Artists in music database
 
 | **artists**  | KEY|
 |--------------|---:|
@@ -73,7 +73,7 @@ Below is presented the schema of sparkifydb. In order to optimize queries for so
 | lattitude    |    |
 | longitude    |    |
 
-> Timestamps of records in songplays broken down into specific units
+Timestamps of records in songplays broken down into specific units
 
 | **time**     | KEY|
 |--------------|---:|
